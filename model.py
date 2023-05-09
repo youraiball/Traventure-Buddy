@@ -32,8 +32,8 @@ class Destination(db.Model):
     lon = db.Column(db.Float, nullable=False)
     lat = db.Column(db.Float, nullable=False)
 
-    trips = db.relationship("Destination", back_populates="destination")
-    activites = db.relationship("Activity", back_populates="destination")
+    trips = db.relationship("Trip", back_populates="destination")
+    activities = db.relationship("Activity", back_populates="destination")
 
     def __repr__(self):
         return f'<Destination destination_id={self.destination_id} city={self.city} country={self.country}>'
@@ -47,7 +47,7 @@ class Trip(db.Model):
     trip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     destination_id = db.Column(db.Integer, db.ForeignKey("destinations.destination_id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
 
     user = db.relationship("User", back_populates="trips")
     destination = db.relationship("Destination", back_populates="trips")
