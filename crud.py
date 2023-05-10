@@ -39,6 +39,26 @@ def create_destination(city, country, lat, lon):
 
     return destination
 
+def get_all_destinationss():
+    """"Get all destinations."""
+
+    return Destination.query.all()
+
+def get_destination_by_id(destination_id):
+    """Get a user by id."""
+    
+    return Destination.query.get(destination_id)
+
+def get_destination_by_city(city):
+    """Get a destination by city."""
+
+    return Destination.query.filter_by(city=city).first()
+
+def get_destination_by_coords(lat, lon):
+    """Get a destination by latitude and longitude."""
+
+    return Destination.query.filter_by(lat=lat, lon=lon).first()
+
 # # # # # # # # # #
 # TRIP FUNCTIONS  #
 # # # # # # # # # # 

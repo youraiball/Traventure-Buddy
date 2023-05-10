@@ -13,7 +13,7 @@ class User(db.Model):
     fname = db.Column(db.String(20), nullable=False)
     lname = db.Column(db.String(20), nullable=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(10), nullable=False)
+    password = db.Column(db.String(30), nullable=False)
 
     trips = db.relationship("Trip", back_populates="user")
 
