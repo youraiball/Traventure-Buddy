@@ -93,6 +93,16 @@ def create_activity(destination, name, type, description=None):
 
     return activity
 
+def get_all_activities():
+    """"Get all activitiess."""
+
+    return Activity.query.all()
+
+def get_activity_by_id(activity_id):
+    """Get an activity by its id."""
+
+    return Activity.query.get(activity_id)
+
 # # # # # # # # # # 
 
 if __name__ == "__main__":

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ activity.name }} Details {% endblock %}
+
+{% block body %}
+
+<h1>{{ activity.name }}</h1>
+
+<p>Activity Type: {{ activity_type }}</p>
+
+<p>Details: {{ activity.description }}</p>
+
+<a href="/itinerary">Add to itinerary</a>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Login Traventure Buddy {% endblock %}
+
+{% block body %}
+
+<div>
+    <h4>Login</h4>
+    <form action="/login" method="POST">
+        <p>email <input type="text" name="email"></p>
+        <p>password <input type="password" name="password"></p>
+        <P> <button type="submit">Login</button> </p>
+    </form>
+</div>
+
+<form action="/itinerary">
+    
+    <a href="/itinerary"> Create one here </a>
+</form>
+
+{% endblock %}

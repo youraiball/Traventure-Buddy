@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Traventure Buddy
+{% endblock %}
+
+{% block body %}
+
+    <h1>
+        Hello there, let's travel the world!
+    </h1>
+
+    <form action="/activities">
+
+        <h3> Where would you like to explore? </h3>
+
+        <p> City <input type="text" name="city"> </p>
+        <p> Country <input type="text" name="country"> </p>
+
+        <h3> When would you be going? </h3>
+
+        <p> from <input type="text" name="from" placeholder="mm/dd/yy"> </p>
+        <p> to <input type=text name="to" placeholder="mm/dd/yy"> </p>
+        <p> <button type="submit">Find Activities</button> </p>
+
+    </form>
+
+{% endblock %}

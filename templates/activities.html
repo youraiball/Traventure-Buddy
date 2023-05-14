@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Activities - Traventure Buddy
+{% endblock %}
+
+{% block body %}
+    <h1>{{ city }}, {{ country }}</h1>
+
+    <ul>
+        {% for activity in activities %}
+            <li>
+                <a href="/activities/{{ activity.activity_id }}">
+                    {{ activity.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}    
