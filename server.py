@@ -32,6 +32,10 @@ def login():
     email = request.form.get("email")
     password = request.form.get("password")
 
+    if not email or not password:
+        flash("Please enter all required fields.")
+        return redirect("/login")
+
     user = crud.get_user_by_email(email)
     if user is not None and email == user.email and password == user.password:
         session["user"] = user.user_id
@@ -39,19 +43,14 @@ def login():
         return redirect("/")
     else:
         flash("Unable to log in. Please try again")
-        return render_template("login.html")
+        return redirect("/login")
 
-@app.route("/activities")
-def show_activities():
-    """Render the activities page."""
+@app.route("/create_account")
+def show_create_account():
+    """Show the create account form."""
 
-    city = request.args.get("city").capitalize()
-    country = request.args.get("country").capitalize()
-
-    activities = crud.get_all_activities()
-
-    return render_template("activities.html", city=city, country=country, activities=activities)
-
+    return render_template("create_account.html")
+    
 @app.route("/create_account", methods=["POST"])
 def create_account():
     """Create a new user account."""
@@ -61,16 +60,37 @@ def create_account():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    if crud.get_user_by_email(email):
+    if fname == None or email == None or password == None:
+        flash("Please enter required fields)")
+        return render_template("create_account.html")
+
+    elif crud.get_user_by_email(email):
         flash("Email in use. Login or try again.")
+        return render_template("create_account.html")
     else:
         new_user = crud.create_user(fname, email, password, lname)
         db.session.add(new_user)
         db.session.commit()
+        session["user"] = new_user.user_id
         flash("Account successfully created")
-    
-    return redirect("/")
+        return redirect("/")
 
+# ACTIVITY ROUTES
+@app.route("/activities")
+def show_activities():
+    """Render the activities page."""
+
+    city = request.args.get("city").capitalize()
+    country = request.args.get("country").capitalize()
+    
+    if not city or not country:
+        flash("Please enter a city and country.")
+        return redirect("/")
+
+    destination = crud.get_destination_by_city(city)
+    activities = destination.activities
+
+    return render_template("activities.html", city=city, country=country, activities=activities)
 
 @app.route("/activities/<activity_id>")
 def show_activity_details(activity_id):

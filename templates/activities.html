@@ -7,6 +7,8 @@
 {% block body %}
     <h1>{{ city }}, {{ country }}</h1>
 
+    
+
     <ul>
         {% for activity in activities %}
             <li>
@@ -16,4 +18,10 @@
             </li>
         {% endfor %}
     </ul>
+
+    <p>Save this list to your profile!</p>
+    <a class="btn btn-primary" href="/dashboard">
+        Save
+    </a>
+
 {% endblock %}    
