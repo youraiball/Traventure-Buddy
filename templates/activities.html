@@ -6,22 +6,41 @@
 
 {% block body %}
     <h1>{{ city }}, {{ country }}</h1>
+    <h3>{{ from_date }} - {{ to_date }}</h3>
 
-    
+    {% if activities %}
 
-    <ul>
-        {% for activity in activities %}
-            <li>
-                <a href="/activities/{{ activity.activity_id }}">
-                    {{ activity.name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <p>Save this list to your profile!</p>
-    <a class="btn btn-primary" href="/dashboard">
-        Save
-    </a>
-
+        <ul>
+            {% for activity in activities %}
+                <li>
+                    <a href="/activities/{{ activity.activity_id }}">
+                        {{ activity.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if not trip %}
+            <p>Save this list to your profile as:</p>
+            <form action="/save-list" method="POST">
+                <div class="mb-3 row">
+                    <!--label for="city" class="col-sm-2 col-form-label">City:</label-->
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" id="city" name="city" value="{{ city }}">
+                    </div>
+                    <!--label for="country" class="col-sm-2 col-form-label">Country:</label-->
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" id="country" name="country" value="{{ country }}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Save
+                </button>
+            </form>
+        {% else %}
+            <a href="/delete-list" class="btn btn-danger">Delete</a>
+        {% endif %}
+    {% else %}
+        <h3>Sorry, Traventure Buddy hasn't quite explored this destination yet.</h3>
+        <h5>There are no activities available at the moment. You can be the trail blazer!</h5>
+    {% endif %}
 {% endblock %}    

@@ -49,10 +49,10 @@ def get_destination_by_id(destination_id):
     
     return Destination.query.get(destination_id)
 
-def get_destination_by_city(city):
+def get_destination_by_city_country(city, country):
     """Get a destination by city."""
 
-    return Destination.query.filter_by(city=city).first()
+    return Destination.query.filter(Destination.city == city, Destination.country == country).first()
 
 def get_destination_by_coords(lat, lon):
     """Get a destination by latitude and longitude."""
@@ -70,6 +70,11 @@ def create_trip(destination, user, name):
 
     return trip
 
+def get_trip_by_id(trip_id):
+    """Get a trip by its ID."""
+
+    return Trip.query.get(trip_id)
+
 # # # # # # # # # # 
 # TYPE FUNCTIONS  #
 # # # # # # # # # # 
@@ -80,6 +85,11 @@ def create_activity_type(type):
     type = ActivityType(type=type)
 
     return type
+
+def get_activity_type_by_name(name):
+    """Get activity type by name."""
+
+    return ActivityType.query.filter(ActivityType.type == name).first()
 
 # # # # # # # # # # # #
 # ACTIVITY FUNCTIONS  #

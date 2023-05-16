@@ -25,7 +25,7 @@ tourism_activity = crud.create_activity_type("Tourism")
 model.db.session.add_all([user, destination, trip, restaurant_activity, shopping_activity, tourism_activity])
 model.db.session.commit()
 
-def get_activity_by_type(activity_type):
+def get_activity_by_type(activity_type, lat, lon, destination):
     url = "https://api.geoapify.com/v2/places"
 
     if activity_type == "catering":
@@ -39,7 +39,7 @@ def get_activity_by_type(activity_type):
         "apiKey": os.environ["GEO_API_KEY"],
         "name": "seoul",
         "categories": activity_type,
-        "bias": "proximity:126.9918,37.5519",
+        "bias": f"proximity:{lon},{lat}",
         "lang": "en"
     }
 
@@ -56,10 +56,10 @@ def get_activity_by_type(activity_type):
         model.db.session.add(activity)
         model.db.session.commit()
 
-get_activity_by_type("catering")
-get_activity_by_type("commercial")
-get_activity_by_type("tourism")
-get_activity_by_type("entertainment")
+get_activity_by_type("catering", 37.5519, 126.9918, destination)
+get_activity_by_type("commercial", 37.5519, 126.9918, destination)
+get_activity_by_type("tourism", 37.5519, 126.9918, destination)
+get_activity_by_type("entertainment", 37.5519, 126.9918, destination)
 
 lotte = crud.create_activity(destination, "Lotte Department Store", shopping_activity,
                              description="14 Floors shopping mall with 3 connected buildings")

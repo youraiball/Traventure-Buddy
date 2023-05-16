@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Traventure Profile {% endblock %}
+
+{% block body %}
+<h1>{{ user.fname }}'s Dashboard</h1>
+    <h3> Your saved trips: </h3>
+    <ul>
+        {% for trip in trips %}
+            <li>
+                <a href="/trips/{{ trip.trip_id }}">{{ trip.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
