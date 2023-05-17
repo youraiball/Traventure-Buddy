@@ -108,8 +108,8 @@ def show_activities():
     from_date = request.args.get("from")
     to_date = request.args.get("to")
     
-    if not city or not country:
-        flash("Please enter a city and country.")
+    if not city or not country or not from_date or not to_date:
+        flash("Please enter all fields.")
         return redirect("/")
 
     destination = crud.get_destination_by_city_country(city, country)
@@ -184,8 +184,15 @@ def save_list():
     
     return redirect("/profile")
 
-@app.route("/delete-list")
+@app.route("/delete-list/<trip_id>")
+def delete_list(trip_id):
+    """Delete a saved list from a user's profile."""
+ 
+    crud.delete_trip_by_id(trip_id)
+    db.session.commit()
+    flash("Your trip has been deleted")
 
+    return redirect("/profile")
 
 if __name__ == "__main__":
     connect_to_db(app)

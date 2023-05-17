@@ -75,6 +75,11 @@ def get_trip_by_id(trip_id):
 
     return Trip.query.get(trip_id)
 
+def delete_trip_by_id(trip_id):
+    """Delete a trip by id."""
+
+    return Trip.query.filter(Trip.trip_id == trip_id).delete()
+
 # # # # # # # # # # 
 # TYPE FUNCTIONS  #
 # # # # # # # # # # 
