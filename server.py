@@ -1,9 +1,9 @@
 """Server for Traventure Buddy app."""
 
-from flask import Flask, render_template, flash, redirect, session, request
+from flask import Flask, render_template, flash, redirect, session, request, jsonify
 from model import connect_to_db, db
 from jinja2 import StrictUndefined
-from helper import get_activity_by_type
+import helper
 import crud
 import requests
 import os
@@ -99,43 +99,72 @@ def show_profile():
         return redirect("/login")
 
 # ACTIVITY ROUTES
-@app.route("/activities")
+@app.route("/api/activities")
 def show_activities():
     """Render the activities page."""
+    
+    activities_list = []
 
     city = request.args.get("city").capitalize()
     country = request.args.get("country").capitalize()
     from_date = request.args.get("from")
     to_date = request.args.get("to")
     
-    if not city or not country or not from_date or not to_date:
+    if not city or not country:
         flash("Please enter all fields.")
         return redirect("/")
-
-    destination = crud.get_destination_by_city_country(city, country)
+    
+    lon, lat = helper.get_coordinates(city, country)
+    destination = crud.get_destination_by_coords(lat, lon)
 
     if destination:
         activities = destination.activities
-    else:
-        country_code = coco.convert(names=country, to="ISO2")
-        opentrip_res = requests.get(f"https://api.opentripmap.com/0.1/en/places/geoname?name={city}&country={country_code}&apikey={os.environ['OPENTRIPMAP_API']}")
-        opentrip_data = opentrip_res.json()
-        lat = opentrip_data["lat"]
-        lon = opentrip_data["lon"]
+        destination_id = destination.destination_id
+    else: 
         new_destination = crud.create_destination(city, country, lat, lon)
 
         db.session.add(new_destination)
         db.session.commit()
 
-        get_activity_by_type("catering", city, lat, lon, new_destination)
-        get_activity_by_type("commercial", city, lat, lon, new_destination)
-        get_activity_by_type("tourism", city, lat, lon, new_destination)
-        get_activity_by_type("entertainment", city, lat, lon, new_destination)
+        helper.get_activity_by_type("catering", city, lat, lon, new_destination)
+        helper.get_activity_by_type("commercial", city, lat, lon, new_destination)
+        helper.get_activity_by_type("tourism", city, lat, lon, new_destination)
+        helper.get_activity_by_type("entertainment", city, lat, lon, new_destination)
 
         activities = new_destination.activities
+        destination_id = new_destination.destination_id
 
-    return render_template("activities.html", trip=None, city=city, country=country, activities=activities,
-                           from_date=from_date, to_date=to_date)
+    if "user" in session:
+        user = crud.get_user_by_id(session["user"])
+        if destination:
+            trips = user.trips
+
+            for trip in trips:
+                if trip.destination.lon == destination.lon and trip.destination.lat == destination.lat:
+                    return redirect(f"/trips/{trip.trip_id}")
+    else:
+        user = None
+
+    for activity in activities:
+        activities_list.append({
+            "activityId": activity.activity_id,
+            "name": activity.name,
+            "description": activity.description,
+            "type": activity.type.type
+        })
+
+    return jsonify({
+        "city": city,
+        "country": country,
+        "activities": activities_list,
+        "fromDate": from_date,
+        "toDate": to_date,
+        "destId": destination_id,
+        "user": user
+    })
+
+    # return render_template("activities.html", trip=None, city=city, country=country, activities=activities,
+    #                        from_date=from_date, to_date=to_date, destination_id=destination_id, user=user)
 
 @app.route("/activities/<activity_id>")
 def show_activity_details(activity_id):
@@ -167,8 +196,8 @@ def show_activities_by_trip(trip_id):
     return render_template("activities.html", trip=trip, city=city, country=country, activities=activities,
                            from_date="", to_date="")
 
-@app.route("/save-list", methods=["POST"])
-def save_list():
+@app.route("/save-list/<destination_id>", methods=["POST"])
+def save_list(destination_id):
     """Save list to user's profile."""
 
     city = request.form.get("city")
@@ -176,7 +205,7 @@ def save_list():
     #trip_name = request.form.get("tname")
 
     user = crud.get_user_by_id(session["user"])
-    destination = crud.get_destination_by_city_country(city, country)
+    destination = crud.get_destination_by_id(destination_id)
 
     trip = crud.create_trip(destination, user, name=f"{city}, {country}")
     db.session.add(trip)

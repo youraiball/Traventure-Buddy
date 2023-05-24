@@ -52,12 +52,12 @@ def get_destination_by_id(destination_id):
 def get_destination_by_city_country(city, country):
     """Get a destination by city."""
 
-    return Destination.query.filter(Destination.city == city, Destination.country == country).first()
+    return Destination.query.filter(Destination.city == city, Destination.country.like(f"%{country}%")).first()
 
 def get_destination_by_coords(lat, lon):
     """Get a destination by latitude and longitude."""
 
-    return Destination.query.filter_by(lat=lat, lon=lon).first()
+    return Destination.query.filter(Destination.lat==lat, Destination.lon==lon).first()
 
 # # # # # # # # # #
 # TRIP FUNCTIONS  #

@@ -2,6 +2,7 @@ import requests
 import crud
 import model
 import os
+import country_converter as coco
 
 def get_activity_by_type(activity_type, city, lat, lon, destination):
     url = "https://api.geoapify.com/v2/places"
@@ -33,3 +34,14 @@ def get_activity_by_type(activity_type, city, lat, lon, destination):
         activity = crud.create_activity(destination, name, db_activity_type, description)
         model.db.session.add(activity)
         model.db.session.commit()
+
+def get_coordinates(city, country):
+    """Return longitude and latitude for a destination."""
+
+    country_code = coco.convert(names=country, to="ISO2")
+    opentrip_res = requests.get(f"https://api.opentripmap.com/0.1/en/places/geoname?name={city}&country={country_code}&apikey={os.environ['OPENTRIPMAP_API']}")
+    opentrip_data = opentrip_res.json()
+    lat = opentrip_data["lat"]
+    lon = opentrip_data["lon"]
+
+    return [lon, lat]

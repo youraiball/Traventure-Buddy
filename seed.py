@@ -15,7 +15,7 @@ model.connect_to_db(server.app)
 model.db.create_all()
 
 user = crud.create_user("Turbo", "turbonoemail@email.com", "menolikeyowner")
-destination = crud.create_destination("Seoul", "South Korea", 37.5519, 126.9918)
+destination = crud.create_destination("Seoul", "South Korea", 37.566, 126.9784)
 trip = crud.create_trip(destination, user, "Seoul, S-Korea")
 
 restaurant_activity = crud.create_activity_type("Restaurants")

@@ -6,23 +6,79 @@
 
 {% block body %}
 
-    <h1>
-        Hello there, let's travel the world!
-    </h1>
+    <div id="search" class="container">
+        <div class="row d-flex justify-content-center">
+            <h1 class="text-center">
+                Hello there, let's travel the world!
+            </h1>
+            <!-- gif -->
+            <div class="tenor-gif-embed" data-postid="22393532" data-share-method="host" data-aspect-ratio="1.15108" data-width="20%">
+                <a href="https://tenor.com/view/mimibubu-gif-22393532">Mimibubu Sticker</a>from <a href="https://tenor.com/search/mimibubu-stickers">Mimibubu Stickers</a>
+            </div>
+            <script 
+                type="text/javascript" async src="https://tenor.com/embed.js">
+            </script>
+            <!-- end gif -->
+        </div>
+        <form class="text-center">
+            <div class="row">
+                <div class="col-6">
+                    <h3> Where would you like to explore? </h3>
+                </div>
+                <div class="col-6">
+                    <h3> When would you be going? </h3>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="city" class="col-1 col-form-label"> City </label>
+                <div class="col-5">
+                    <input type="text" name="city" id="city" class="form-control">
+                </div>
+                <label for="from" class="col-1 col-form-label">From</label>
+                <div class="col-5">
+                    <input type="text" name="from" id="from" class="form-control" placeholder="mm/dd/yy">
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label for="country" class="col-1 col-form-label">Country</label>
+                <div class="col-5">
+                    <input type="text" name="country" id="country" class="form-control"> 
+                </div>   
+                <label for="to" class="col-1 col-form-label">To</label>
+                <div class="col-5">
+                    <input type="text" name="to" id="to" class="form-control" placeholder="mm/dd/yy"> 
+                </div> 
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-2">
+                    <button id="find-act" type="submit" class="btn btn-primary">Find Activities</button>
+                </div>    
+            </div>
+        </form>
+    </div>
 
-    <form action="/activities">
+    <div id="loader" style="display: none;">
+        <div class="tenor-gif-embed" data-postid="15571440" data-share-method="host" data-aspect-ratio="1" data-width="20%"><a href="https://tenor.com/view/buscando-duck-looking-searching-finding-gif-15571440">Buscando Duck GIF</a>from <a href="https://tenor.com/search/buscando-gifs">Buscando GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        <p>Searching for activities. This may take a while. Please do not refresh.</p>
+    </div>
+    
+    <div style="display:none;" id="all-activs" class="animate-bottom">
+    
+    
+        <h1 id="place-title"></h1>
+        <h3 id="date-title"></h3>
+    
+        <!-- <button type="submit">View in Columns</button>
+     -->
+        <div id="activities-ctn">
+        
+                <ul id="activities-list">
+                </ul>
+         
+          
+        </div>
+    </div>
 
-        <h3> Where would you like to explore? </h3>
-
-        <p> City <input type="text" name="city"> </p>
-        <p> Country <input type="text" name="country"> </p>
-
-        <h3> When would you be going? </h3>
-
-        <p> from <input type="text" name="from" placeholder="mm/dd/yy"> </p>
-        <p> to <input type=text name="to" placeholder="mm/dd/yy"> </p>
-        <p> <button type="submit">Find Activities</button> </p>
-
-    </form>
-
+    <script src="/static/script.js"></script>
 {% endblock %}

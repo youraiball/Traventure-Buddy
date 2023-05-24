@@ -5,12 +5,15 @@
 {% block body %}
 <h1>{{ user.fname }}'s Dashboard</h1>
     <h3> Your saved trips: </h3>
-    <ul>
-        {% for trip in trips %}
-            <li>
-                <a href="/trips/{{ trip.trip_id }}">{{ trip.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-
+    {% if trips %}
+        <ul>
+            {% for trip in trips %}
+                <li>
+                    <a href="/trips/{{ trip.trip_id }}">{{ trip.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You currently have no trips</p>
+    {% endif %}
 {% endblock %}

@@ -29,7 +29,7 @@ class Destination(db.Model):
     destination_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city = db.Column(db.String(20), nullable=False)
     country = db.Column(db.String(20), nullable=False)
-    lon = db.Column(db.Float, nullable=False)
+    lon = db.Column(db.Float, nullable=False, unique=True)
     lat = db.Column(db.Float, nullable=False)
 
     trips = db.relationship("Trip", back_populates="destination")
@@ -48,6 +48,10 @@ class Trip(db.Model):
     destination_id = db.Column(db.Integer, db.ForeignKey("destinations.destination_id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
     name = db.Column(db.String(50), nullable=False)
+
+    # Creates a unique constraint on combination of destination and user
+    # Allows each user to save each destinatino once and only once
+    __table_args__ = (db.UniqueConstraint("destination_id", "user_id", name="destination_user_idx"),)
 
     user = db.relationship("User", back_populates="trips")
     destination = db.relationship("Destination", back_populates="trips")
