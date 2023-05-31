@@ -18,7 +18,7 @@ app.jinja_env.undefined = StrictUndefined
 @app.route("/")
 def show_homepage():
     """Render the homepage."""
-    
+
     return render_template("homepage.html")
 
 # USER ROUTES #
@@ -105,8 +105,8 @@ def show_activities():
     
     activities_list = []
 
-    city = request.args.get("city").capitalize()
-    country = request.args.get("country").capitalize()
+    city = request.args.get("city").title()
+    country = request.args.get("country").title()
     from_date = request.args.get("from")
     to_date = request.args.get("to")
     
@@ -142,6 +142,7 @@ def show_activities():
             for trip in trips:
                 if trip.destination.lon == destination.lon and trip.destination.lat == destination.lat:
                     return redirect(f"/trips/{trip.trip_id}")
+                
     else:
         user = None
 
@@ -160,7 +161,7 @@ def show_activities():
         "fromDate": from_date,
         "toDate": to_date,
         "destId": destination_id,
-        "user": user
+        "user": user.fname if user else ""
     })
 
     # return render_template("activities.html", trip=None, city=city, country=country, activities=activities,
@@ -193,25 +194,37 @@ def show_activities_by_trip(trip_id):
     country = destination.country
     activities = destination.activities
 
-    return render_template("activities.html", trip=trip, city=city, country=country, activities=activities,
+    return render_template("saved_activities.html", trip=trip, city=city, country=country, activities=activities,
                            from_date="", to_date="")
 
-@app.route("/save-list/<destination_id>", methods=["POST"])
-def save_list(destination_id):
+@app.route("/api/save-list", methods=["POST"])
+def save_list():
     """Save list to user's profile."""
 
-    city = request.form.get("city")
-    country = request.form.get("country")
+    destination_id = request.json.get("destId")
+    city = request.json.get("city")
+    country = request.json.get("country")
     #trip_name = request.form.get("tname")
 
-    user = crud.get_user_by_id(session["user"])
+    if "user" in session:
+        user = crud.get_user_by_id(session["user"])
+    else:
+        return jsonify({
+            "success": False,
+            "status": "Please log in first to save this list."
+        })
+    
+
     destination = crud.get_destination_by_id(destination_id)
 
     trip = crud.create_trip(destination, user, name=f"{city}, {country}")
     db.session.add(trip)
     db.session.commit()
     
-    return redirect("/profile")
+    return jsonify({
+        "success": True,
+        "status": f"A trip for {destination.city}, {destination.country} has been created and saved."
+    })
 
 @app.route("/delete-list/<trip_id>")
 def delete_list(trip_id):

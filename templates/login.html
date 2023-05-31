@@ -5,16 +5,38 @@
 {% block body %}
 
 <div>
-    <h3>Login to save lists and build itinerary</h3>
+    <div class="text-center">
+        <img src="/static/images/pngman.png" width="256" height="256">
+    </div>
+
+    <h3 class="text-center">Log in to save lists to your profile</h3>
     
-    <form action="/login" method="POST">
-        <p>email <input type="text" name="email"></p>
-        <p>password <input type="password" name="password"></p>
-        <P> <button type="submit">Login</button> </p>
+    <form class="text-center" action="/login" method="POST">
+        <div class="row d-flex justify-content-center">
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="default" aria-describedby="inputGroup-sizing-default" id="email" name="email">
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                    </div>
+                    <input type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="password" name="password">
+                </div>
+            </div>
+        </div>
+        <p> <button class="btn btn-primary" type="submit">Login</button> </p>
     </form>
 </div>
 
-<form action="/create_account">
+<form class="text-center" action="/create_account">
     <p>Don't have an account?</p>
     <a href="/create_account"> Create one here </a>
 </form>

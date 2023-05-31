@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Activities - Traventure Buddy
+{% endblock %}
+
+{% block body  %}
+
+    <h1>{{ city }}, {{ country }}</h1>
+    <h3>{{ from_date }} - {{ to_date }}</h3>
+
+    <button type="submit">View in Columns</button>
+
+    <!--{% if activities %} -->
+
+        <ul>
+            {% for activity in activities %}
+                <li>
+                    <a href="/activities/{{ activity.activity_id }}">
+                        {{ activity.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="/delete-list/{{ trip.trip_id }}" class="btn btn-danger">Delete</a>
+    <!-- {% else %}
+            <h3>
+                Sorry, 
+                {% if "user" in session %} 
+                    {{ user.fname }}.
+                {% else %}
+                    Traveler.
+                {% endif %}  Looks like Traventure Buddy hasn't quite explored this destination yet.
+            </h3>
+            <h5>There are no activities available at the moment but you can be the trail blazer!</h5>
+    {% endif %} -->
+</div>
+
+{% endblock %}    
