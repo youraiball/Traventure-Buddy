@@ -15,7 +15,19 @@ model.connect_to_db(server.app)
 model.db.create_all()
 
 user = crud.create_user("Turbo", "turbonoemail@email.com", "menolikeyowner")
-destination = crud.create_destination("Seoul", "South Korea", 37.566, 126.9784)
+
+google_search_payload = {
+    "q": "Seoul South Korea",
+    "cx": "2357895293d054097",
+    "key": os.environ["GOOGLE_CSE_API"],
+    "searchType": "image"
+}
+google_search_res = requests.get("https://customsearch.googleapis.com/customsearch/v1", params=google_search_payload)
+google_search_json = google_search_res.json()
+destination_imgs = google_search_json["items"]
+image = destination_imgs[0]["link"]
+
+destination = crud.create_destination("Seoul", "South Korea", 37.566, 126.9784, image)
 trip = crud.create_trip(destination, user, "Seoul, S-Korea")
 
 restaurant_activity = crud.create_activity_type("Restaurants")

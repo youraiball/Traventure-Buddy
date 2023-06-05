@@ -32,10 +32,10 @@ def get_user_by_email(email):
 # DESTINATION FUNCTIONS #
 # # # # # # # # # # # # #
 
-def create_destination(city, country, lat, lon):
+def create_destination(city, country, lat, lon, img):
     """Create new destination."""
 
-    destination = Destination(city=city, country=country, lat=lat, lon=lon)
+    destination = Destination(city=city, country=country, lat=lat, lon=lon, image=img)
 
     return destination
 
@@ -79,6 +79,11 @@ def delete_trip_by_id(trip_id):
     """Delete a trip by id."""
 
     return Trip.query.filter(Trip.trip_id == trip_id).delete()
+
+def get_tripcount(user_id):
+    """Get total number of trips from each user"""
+
+    return Trip.query.filter(Trip.user_id == user_id).count()
 
 # # # # # # # # # # 
 # TYPE FUNCTIONS  #

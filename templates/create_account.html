@@ -5,13 +5,66 @@
 {% block body %}
 
 <div>
-    <h4>Create your account</h4>
-    <form action="/create_account" method="POST">
-        <p>First Name <input type="text" name ="fname"></p>
-        <p>Last Name <input type="text" name ="lname"></p>
-        <p>Email <input type="text" name="email"></p>
-        <p>Password <input type="password" name="password"></p>
-        <P> <button type="submit">Create Account</button> </p>
+    <div class="text-center">
+        <img src="/static/images/form.png" width="290.3" height="300">
+    </div>
+
+    <h4 class="text-center">Create your account</h4>
+    <form class="text-center" action="/create_account" method="POST">
+
+        <!--First Name field-->
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text border-info" id="inputGroup-sizing-default">First Name</span>
+                    </div>
+                    <input type="text" class="form-control border-dark" aria-label="default" aria-describedby="inputGroup-sizing-default" id="fname" name="fname">
+                </div>
+            </div>
+        </div>
+       <!--end first name-->
+
+       <!--Last Name Field-->
+       <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text border-info" id="inputGroup-sizing-default">Last Name</span>
+                    </div>
+                    <input type="text" class="form-control border-dark" aria-label="default" aria-describedby="inputGroup-sizing-default" id="lname" name="lname">
+                </div>
+            </div>
+        </div>
+        <!--end last name-->
+        
+        <!--Email Field-->
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text border-info" id="inputGroup-sizing-default">Email</span>
+                    </div>
+                    <input type="text" class="form-control border-dark" aria-label="default" aria-describedby="inputGroup-sizing-default" id="email" name="email">
+                </div>
+            </div>
+        </div>
+        <!--end email-->
+        
+        <!--Password field-->
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text border-info" id="inputGroup-sizing-default">Password</span>
+                    </div>
+                    <input type="password" class="form-control border-dark" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="password" name="password">
+                </div>
+            </div>
+        </div>
+        <!--end password-->
+
+        <P> <button class="btn btn-success" type="submit">Create Account</button> </p>
     </form>
 </div>
 

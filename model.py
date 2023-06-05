@@ -31,6 +31,7 @@ class Destination(db.Model):
     country = db.Column(db.String(20), nullable=False)
     lon = db.Column(db.Float, nullable=False, unique=True)
     lat = db.Column(db.Float, nullable=False)
+    image = db.Column(db.String)
 
     trips = db.relationship("Trip", back_populates="destination")
     activities = db.relationship("Activity", back_populates="destination")

@@ -4,14 +4,16 @@
 
 {% block body %}
 
-<h1>{{ activity.name }}</h1>
+<h1 class="text-center">{{ activity.name }}</h1>
 
-<p>Activity Type: {{ activity_type }}</p>
+<h5 class="text-center">Activity Type: {{ activity_type }}</h5>
 
-<p>Details: {{ activity.description }}</p>
+<p class="text-center">Details: {{ activity.description }}</p>
 
-<iframe src="https://giphy.com/embed/11sBLVxNs7v6WA" width="480" height="217" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cheer-cheering-11sBLVxNs7v6WA"></a></p>
+<div class="text-center">
+    <iframe src="https://giphy.com/embed/11sBLVxNs7v6WA" width="480" height="217" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+</div>
 
-<h2>Let's go here!!!!</h2>
+<h4 class="text-center">LET'S GO HERE!</h4>
 
 {% endblock %}

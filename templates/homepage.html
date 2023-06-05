@@ -54,7 +54,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-2">
-                        <button id="find-act" type="submit" class="btn btn-primary">Find Activities</button>
+                        <button id="find-act" type="submit" class="btn btn-success">Find Activities</button>
                     </div>    
                 </div>
             </form>
@@ -73,18 +73,23 @@
         
             <!-- <button type="submit">View in Columns</button>
         -->
-            <div id="activities-ctn">
-                <div id="no-activities" style="display: none;">
+            <div id="activities-ctn" class="row mb-3">
+                <div id="no-activities" style="display: none;" class="col-12">
                     <h3 id="sorry-msg"></h3>
                     <h5>There are no known activities available at the moment, but you can be the trail blazer!</h5>
                 </div>  
                 
-                <ul id="activities-list"></ul>
-                <button id="save-btn" type="button" class="btn btn-primary" style="display: none;">Save List</button>
+                <div class="list-group col-6 overflow-auto" id="activities-list" style="height: 500px;"></div>
+                <div class="col-6">
+                    <img id="destination-img" class="img-fluid mb-3" src="">
+                    <button id="save-btn" type="button" class="btn btn-primary" style="display: none;">Save List</button>
+                </div>
+                
             </div>
+           
         </div>
          
     </div>
 
-    <script src="/static/script.js"></script>
+    <script src="/static/js/home_script.js"></script>
 {% endblock %}

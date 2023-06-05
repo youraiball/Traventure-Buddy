@@ -26,11 +26,16 @@ document.querySelector("#find-act").addEventListener("click", (evt) => {
 
                 if (activityData.activities.length !== 0) {
                     for (const activity of activityData.activities){
-                        document.querySelector("#activities-list").insertAdjacentHTML("beforeend", `<li>
-                        <a href="/activities/${activity.activityId}">
+                        document.querySelector("#activities-list").insertAdjacentHTML("beforeend", `
+                        <a class="list-group-item list-group-item-action" href="https://www.google.com/search?q=${activity.name} ${activityData.country}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Activity Type: ${activity.type}">
                             ${activity.name}
-                        </a></li>`);
+                        </a>`);
                     }
+                    // Initialize tooltips to use
+                    const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle='tooltip']");
+                    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+                    document.querySelector("#destination-img").src = activityData.destImg;
                     document.querySelector('#save-btn').style.display = "";
                     document.querySelector('#save-btn').addEventListener("click", () =>{
                         const data = {
@@ -49,12 +54,12 @@ document.querySelector("#find-act").addEventListener("click", (evt) => {
                             .then((response) => response.json())
                             .then((responseJson) => {
                                 document.querySelector("#status-ctn").innerHTML = responseJson.status
-                                if (responseJson.status === true) {
+                                if (responseJson.success === true) {
                                     document.querySelector("#status-ctn").classList.add("alert", "alert-success");
                                 } else {
                                     document.querySelector("#status-ctn").classList.add("alert", "alert-danger");
-                                    window.scrollTo(0,0);
-                                };
+                                }
+                                window.scrollTo(0,0);
                             });
                     });
                 } else {

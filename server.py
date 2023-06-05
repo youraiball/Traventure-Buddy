@@ -36,16 +36,16 @@ def login():
     password = request.form.get("password")
 
     if not email or not password:
-        flash("Please enter all required fields.")
+        flash("Please enter all required fields.", "danger")
         return redirect("/login")
 
     user = crud.get_user_by_email(email)
     if user is not None and email == user.email and password == user.password:
         session["user"] = user.user_id
-        flash("You are logged in")
+        flash("You are logged in", "success")
         return redirect("/profile")
     else:
-        flash("Unable to log in. Please try again")
+        flash("Unable to log in. Please try again", "danger")
         return redirect("/login")
 
 @app.route("/logout")
@@ -53,7 +53,7 @@ def logout():
     """Let user log out."""
 
     del session["user"]
-    flash("You have been logged out")
+    flash("You have been logged out", "success")
 
     return redirect("/")
 
@@ -73,19 +73,19 @@ def create_account():
     password = request.form.get("password")
 
     if fname == None or email == None or password == None:
-        flash("Please enter required fields)")
+        flash("Please enter required fields", "danger")
         return render_template("create_account.html")
 
     elif crud.get_user_by_email(email):
-        flash("Email in use. Login or try again.")
+        flash("Email in use. Login or try again.", "danger")
         return render_template("create_account.html")
     else:
         new_user = crud.create_user(fname, email, password, lname)
         db.session.add(new_user)
         db.session.commit()
         session["user"] = new_user.user_id
-        flash("Account successfully created")
-        return redirect("/")
+        flash("Account successfully created", "success")
+        return redirect("/profile")
 
 @app.route("/profile")
 def show_profile():
@@ -97,6 +97,17 @@ def show_profile():
         return render_template("profile.html", user=user, trips=trips)
     else:
         return redirect("/login")
+
+@app.route("/api/get-tripcount")
+def show_tripcount():
+    """Show total number of trips saved on profile page"""
+
+    if "user" in session:
+        user_id = session["user"]
+    
+    trip_count = crud.get_tripcount(user_id)
+
+    return str(trip_count)
 
 # ACTIVITY ROUTES
 @app.route("/api/activities")
@@ -111,7 +122,7 @@ def show_activities():
     to_date = request.args.get("to")
     
     if not city or not country:
-        flash("Please enter all fields.")
+        flash("Please enter all fields.", "danger")
         return redirect("/")
     
     lon, lat = helper.get_coordinates(city, country)
@@ -120,8 +131,10 @@ def show_activities():
     if destination:
         activities = destination.activities
         destination_id = destination.destination_id
-    else: 
-        new_destination = crud.create_destination(city, country, lat, lon)
+        destination_img = destination.image
+    else:
+        image = helper.get_destination_image(city, country) 
+        new_destination = crud.create_destination(city, country, lat, lon, image)
 
         db.session.add(new_destination)
         db.session.commit()
@@ -133,6 +146,7 @@ def show_activities():
 
         activities = new_destination.activities
         destination_id = new_destination.destination_id
+        destination_img = new_destination.image
 
     if "user" in session:
         user = crud.get_user_by_id(session["user"])
@@ -161,6 +175,7 @@ def show_activities():
         "fromDate": from_date,
         "toDate": to_date,
         "destId": destination_id,
+        "destImg": destination_img,
         "user": user.fname if user else ""
     })
 
@@ -176,13 +191,6 @@ def show_activity_details(activity_id):
 
     return render_template("activity_details.html", activity=activity, activity_type=activity_type)
 
-@app.route("/itinerary")
-def show_itinerary():
-    """View a user's itinerary if account exists and is logged in"""
-
-    # user stuff, login, create account, something something
-
-    return render_template("itinerary.html")
 
 @app.route("/trips/<trip_id>")
 def show_activities_by_trip(trip_id):
@@ -223,7 +231,7 @@ def save_list():
     
     return jsonify({
         "success": True,
-        "status": f"A trip for {destination.city}, {destination.country} has been created and saved."
+        "status": f"A trip for {destination.city}, {destination.country} has been created and saved to your profile."
     })
 
 @app.route("/delete-list/<trip_id>")
@@ -232,9 +240,10 @@ def delete_list(trip_id):
  
     crud.delete_trip_by_id(trip_id)
     db.session.commit()
-    flash("Your trip has been deleted")
+    flash("Your trip has been deleted", "success")
 
     return redirect("/profile")
+
 
 if __name__ == "__main__":
     connect_to_db(app)

@@ -3,17 +3,54 @@
 {% block title %} Traventure Profile {% endblock %}
 
 {% block body %}
-<h1>{{ user.fname }}'s Dashboard</h1>
-    <h3> Your saved trips: </h3>
-    {% if trips %}
-        <ul>
-            {% for trip in trips %}
-                <li>
-                    <a href="/trips/{{ trip.trip_id }}">{{ trip.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>You currently have no trips</p>
-    {% endif %}
+
+<div class="container">
+
+    <div class="row mt-5">
+
+        <div class="col-4">
+           
+            <div class="card text-bg-dark border-dark" style="width: 18rem;">
+                <div class="card-header">{{ user.fname }}'s Profile</div>
+                <img class="card-img-top" src="/static/images/profilepic.jpeg" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Account Details</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">First Name: {{ user.fname }}</li>
+                <li class="list-group-item">Last Name: {{ user.lname }}</li>
+                <li class="list-group-item">Email: {{ user.email }}</li>
+                <li class="list-group-item">Saved Trips: <p id="tripcount" class="d-inline"></p></li>
+                <li class="list-group-item"><a href="/">Search more destinations</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="col-8">
+            <h3 class="mb-3"> {{ user.fname }}'s Saved Trips</h3>
+
+            {% if trips %}
+                {% for trip in trips %}
+                        <div class="card mb-3 text-bg-light border-dark">
+                            <img class="card-img-top" src="{{ trip.destination.image }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/trips/{{ trip.trip_id }}">{{ trip.name }}</a></h5>
+                                <p class="card-text">( {{ trip.destination.lat }}, {{ trip.destination.lon }})</p>
+                            </div>
+                        </div>
+                {% endfor %}
+            {% else %}
+                <p>You currently have no trips</p>
+            {% endif %}
+        </div>
+
+          
+        
+        
+    </div>
+</div>
+
+<script src="/static/js/profile_script.js"></script>
+
 {% endblock %}

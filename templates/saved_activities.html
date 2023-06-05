@@ -6,34 +6,25 @@
 
 {% block body  %}
 
-    <h1>{{ city }}, {{ country }}</h1>
-    <h3>{{ from_date }} - {{ to_date }}</h3>
+<div class="container">
 
-    <button type="submit">View in Columns</button>
+    <div class="row">
+        <h1>{{ city }}, {{ country }}</h1>
+        <h3>{{ from_date }} - {{ to_date }}</h3>
 
-    <!--{% if activities %} -->
 
-        <ul>
-            {% for activity in activities %}
-                <li>
-                    <a href="/activities/{{ activity.activity_id }}">
-                        {{ activity.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-        <a href="/delete-list/{{ trip.trip_id }}" class="btn btn-danger">Delete</a>
-    <!-- {% else %}
-            <h3>
-                Sorry, 
-                {% if "user" in session %} 
-                    {{ user.fname }}.
-                {% else %}
-                    Traveler.
-                {% endif %}  Looks like Traventure Buddy hasn't quite explored this destination yet.
-            </h3>
-            <h5>There are no activities available at the moment but you can be the trail blazer!</h5>
-    {% endif %} -->
+            <div class="list-group mb-3 col-6">
+                {% for activity in activities %}
+                        <a class="list-group-item list-group-item-action" href="/activities/{{ activity.activity_id }}">
+                            {{ activity.name }}
+                        </a>
+                {% endfor %}
+            </div>
+        
+            <div class="col-6"><img class="img-fluid" src="{{ trip.destination.image }}"></div>
+    </div>
+    <a href="/delete-list/{{ trip.trip_id }}" class="btn btn-danger">Delete</a>
 </div>
+
 
 {% endblock %}    

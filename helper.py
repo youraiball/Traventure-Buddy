@@ -45,3 +45,19 @@ def get_coordinates(city, country):
     lon = opentrip_data["lon"]
 
     return [lon, lat]
+
+def get_destination_image(city, country):
+    """Call Google Search Engine to retrieve a destination image."""
+
+    google_search_payload = {
+    "q": f"{city} {country}",
+    "cx": "2357895293d054097",
+    "key": os.environ["GOOGLE_CSE_API"],
+    "searchType": "image"
+    }
+    google_search_res = requests.get("https://customsearch.googleapis.com/customsearch/v1", params=google_search_payload)
+    google_search_json = google_search_res.json()
+    destination_imgs = google_search_json["items"]
+    image = destination_imgs[0]["link"]
+
+    return image

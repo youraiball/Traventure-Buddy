@@ -9,16 +9,16 @@
         <img src="/static/images/pngman.png" width="256" height="256">
     </div>
 
-    <h3 class="text-center">Log in to save lists to your profile</h3>
+    <h3 class="text-center">Log in to save searches to your profile</h3>
     
     <form class="text-center" action="/login" method="POST">
         <div class="row d-flex justify-content-center">
             <div class="col-4">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                    <span class="input-group-text border-dark" id="inputGroup-sizing-default">Email</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="default" aria-describedby="inputGroup-sizing-default" id="email" name="email">
+                    <input type="text" class="form-control border-dark" aria-label="default" aria-describedby="inputGroup-sizing-default" id="email" name="email" placeholder="example@gmail.com">
                 </div>
             </div>
         </div>
@@ -26,13 +26,13 @@
             <div class="col-4">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                    <span class="input-group-text border-dark" id="inputGroup-sizing-default">Password</span>
                     </div>
-                    <input type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="password" name="password">
+                    <input type="password" class="form-control border-dark" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="password" name="password" placeholder="******...">
                 </div>
             </div>
         </div>
-        <p> <button class="btn btn-primary" type="submit">Login</button> </p>
+        <p> <button class="btn btn-info" type="submit">Login</button> </p>
     </form>
 </div>
 
