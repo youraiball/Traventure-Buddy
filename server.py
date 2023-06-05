@@ -150,12 +150,12 @@ def show_activities():
 
     if "user" in session:
         user = crud.get_user_by_id(session["user"])
-        if destination:
-            trips = user.trips
+        # if destination:
+        #     trips = user.trips
 
-            for trip in trips:
-                if trip.destination.lon == destination.lon and trip.destination.lat == destination.lat:
-                    return redirect(f"/trips/{trip.trip_id}")
+        #     for trip in trips:
+        #         if trip.destination.lon == destination.lon and trip.destination.lat == destination.lat:
+        #             return redirect(f"/trips/{trip.trip_id}")
                 
     else:
         user = None
@@ -224,6 +224,13 @@ def save_list():
     
 
     destination = crud.get_destination_by_id(destination_id)
+
+    for user_trip in user.trips:
+        if user_trip.destination_id == destination_id:
+            return jsonify({
+                "success": False,
+                "status": f"A trip for {destination.city}, {destination.country} already exists."
+            })
 
     trip = crud.create_trip(destination, user, name=f"{city}, {country}")
     db.session.add(trip)

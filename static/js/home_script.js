@@ -22,7 +22,7 @@ document.querySelector("#find-act").addEventListener("click", (evt) => {
                     document.querySelector("#date-title").innerHTML = `${activityData.fromDate} - ${activityData.toDate}`;
                 }
                 
-                document.querySelector("#loader").classList.add("d-none");
+                document.querySelector("#loader-ctn").classList.add("d-none");
 
                 if (activityData.activities.length !== 0) {
                     for (const activity of activityData.activities){
@@ -72,7 +72,7 @@ document.querySelector("#find-act").addEventListener("click", (evt) => {
                 }
             });
         document.querySelector("#search").style.display = "none";
-        document.querySelector("#loader").classList.remove("d-none");
+        document.querySelector("#loader-ctn").classList.remove("d-none");
     } else {
         document.querySelector("#status-ctn").innerHTML = "Please enter a valid destination.";
         document.querySelector("#status-ctn").classList.add("alert", "alert-danger");
