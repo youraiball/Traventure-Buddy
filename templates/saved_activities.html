@@ -6,25 +6,34 @@
 
 {% block body  %}
 
-<div class="container">
+    <div class="container">
 
-    <div class="row">
-        <h1>{{ city }}, {{ country }}</h1>
-        <h3>{{ from_date }} - {{ to_date }}</h3>
+        <div class="row">
+            <h1>{{ city }}, {{ country }}</h1>
+            <h3>{{ from_date }} - {{ to_date }}</h3>
 
 
-            <div class="list-group mb-3 col-6">
-                {% for activity in activities %}
-                        <a class="list-group-item list-group-item-action" href="/activities/{{ activity.activity_id }}">
-                            {{ activity.name }}
-                        </a>
-                {% endfor %}
+                <div class="list-group mb-3 col-6 overflow-auto card border-dark" style="height: 500px;">
+                    {% for activity in activities %}
+                            <a class="list-group-item list-group-item-action" href="https://www.google.com/search?q=${activity.name} {{ country }}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Activity Type: {{ activity.type.type }}">
+                                {{ activity.name }}
+                            </a>
+                    {% endfor %}
+                </div>
+            
+                <div class="col-6">
+                    <img class="img-fluid mb-3" src="{{ trip.destination.image }}">
+                    <a href="/delete-list/{{ trip.trip_id }}" class="btn btn-danger">Delete</a>
             </div>
+        </div>
         
-            <div class="col-6"><img class="img-fluid" src="{{ trip.destination.image }}"></div>
     </div>
-    <a href="/delete-list/{{ trip.trip_id }}" class="btn btn-danger">Delete</a>
-</div>
+{% endblock %}
 
-
-{% endblock %}    
+{% block after_body %}
+    <script>
+        // Initialize tooltips to use
+        const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle='tooltip']");
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    </script>
+{% endblock %}
