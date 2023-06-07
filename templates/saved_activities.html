@@ -4,13 +4,23 @@
     Activities - Traventure Buddy
 {% endblock %}
 
+{% block head %}
+
+    <style>
+        body {
+                background-image: linear-gradient(0deg, rgba(0, 7, 4, 0.7), rgba(224, 169, 139, 0.25)),url("/static/images/atlas-bg.jpg");
+                background-size: cover;
+            }
+    </style>
+    
+{% endblock %}
+
 {% block body  %}
 
     <div class="container">
 
         <div class="row">
-            <h1>{{ city }}, {{ country }}</h1>
-            <h3>{{ from_date }} - {{ to_date }}</h3>
+            <h1 class="text-light">{{ city }}, {{ country }}</h1>
 
 
                 <div class="list-group mb-3 col-6 overflow-auto card border-dark" style="height: 500px;">

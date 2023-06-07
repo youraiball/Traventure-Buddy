@@ -3,13 +3,9 @@ document.querySelector("#find-act").addEventListener("click", (evt) => {
 
     const city = document.querySelector("#city").value;
     const country = document.querySelector("#country").value;
-    const fromDate = document.querySelector("#from").value;
-    const toDate = document.querySelector("#to").value;
     const queryString = new URLSearchParams({ 
         city: city,
         country: country,
-        from: fromDate,
-        to: toDate
     }).toString();
     if (city !== '' && country !== '') {
         fetch (`/api/activities?${queryString}`)
@@ -17,10 +13,6 @@ document.querySelector("#find-act").addEventListener("click", (evt) => {
             .then((activityData) => {
                 document.querySelector("#all-activs").style.display = "";
                 document.querySelector("#place-title").innerHTML = `${activityData.city}, ${activityData.country}`;
-
-                if (activityData.fromDate !== "" && activityData.toDate !== "") {
-                    document.querySelector("#date-title").innerHTML = `${activityData.fromDate} - ${activityData.toDate}`;
-                }
                 
                 document.querySelector("#loader-ctn").classList.add("d-none");
 
@@ -63,6 +55,7 @@ document.querySelector("#find-act").addEventListener("click", (evt) => {
                             });
                     });
                 } else {
+                    document.querySelector("#activities-list").classList.add("d-none");
                     if (activityData.user !== "") {
                         document.querySelector("#sorry-msg").innerHTML = `Sorry, ${activityData.user}.`;
                     } else {

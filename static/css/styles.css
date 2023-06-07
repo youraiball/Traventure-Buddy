@@ -1,5 +1,5 @@
 nav {
-    background-color: rgb(167, 231, 209);
+    background-color: rgb(3, 33, 34);
 }
 
 .loader {
@@ -18,4 +18,8 @@ nav {
 
   #activities-list {
     overflow-y: scroll;
+  }
+
+  #find-act {
+    background-color: rgb(3, 33, 34);
   }

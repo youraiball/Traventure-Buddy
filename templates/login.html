@@ -2,14 +2,29 @@
 
 {% block title %} Login Traventure Buddy {% endblock %}
 
+{% block head %}
+
+    <style>
+        body {
+                background-image: url("/static/images/brownboat.jpg");
+                background-size: cover;
+            }
+    </style>
+    
+{% endblock %}
+
 {% block body %}
 
-<div>
-    <div class="text-center">
-        <img src="/static/images/pngman.png" width="256" height="256">
+<div class="container mt-3">
+
+    <div class="row d-flex justify-content-center mb-3">
+        <h4 class="col-4 text-center">Log in to save your searches</h4>
     </div>
 
-    <h3 class="text-center">Log in to save searches to your profile</h3>
+    <div class="text-center mb-5">
+        <img src="/static/images/darkgreenglobe.png" width="200" height="200">
+    </div>
+   
     
     <form class="text-center" action="/login" method="POST">
         <div class="row d-flex justify-content-center">
@@ -32,13 +47,13 @@
                 </div>
             </div>
         </div>
-        <p> <button class="btn btn-info" type="submit">Login</button> </p>
+        <p> <button class="btn btn-light" type="submit">Login</button> </p>
     </form>
 </div>
 
 <form class="text-center" action="/create_account">
-    <p>Don't have an account?</p>
-    <a href="/create_account"> Create one here </a>
+    <p class="text-light">Don't have an account?</p>
+    <a href="/create_account" class="text-light"> Create one here </a>
 </form>
 
 {% endblock %}

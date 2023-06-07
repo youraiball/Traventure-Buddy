@@ -2,14 +2,27 @@
 
 {% block title %} Create Account - Traventure Buddy {% endblock %}
 
+{% block head %}
+
+    <style>
+        body {
+                background-image: url("/static/images/maps-bg.jpg");
+                background-size: cover;
+            }
+    </style>
+    
+{% endblock %}
+
 {% block body %}
 
 <div>
+
+    <h4 class="text-center text-light">Create your account</h4>
+
     <div class="text-center">
         <img src="/static/images/form.png" width="290.3" height="300">
     </div>
 
-    <h4 class="text-center">Create your account</h4>
     <form class="text-center" action="/create_account" method="POST">
 
         <!--First Name field-->
@@ -17,7 +30,7 @@
             <div class="col-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text border-info" id="inputGroup-sizing-default">First Name</span>
+                    <span class="input-group-text border-success" id="inputGroup-sizing-default">First Name</span>
                     </div>
                     <input type="text" class="form-control border-dark" aria-label="default" aria-describedby="inputGroup-sizing-default" id="fname" name="fname">
                 </div>
@@ -30,7 +43,7 @@
             <div class="col-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text border-info" id="inputGroup-sizing-default">Last Name</span>
+                    <span class="input-group-text border-success" id="inputGroup-sizing-default">Last Name</span>
                     </div>
                     <input type="text" class="form-control border-dark" aria-label="default" aria-describedby="inputGroup-sizing-default" id="lname" name="lname">
                 </div>
@@ -43,7 +56,7 @@
             <div class="col-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text border-info" id="inputGroup-sizing-default">Email</span>
+                    <span class="input-group-text border-success" id="inputGroup-sizing-default">Email</span>
                     </div>
                     <input type="text" class="form-control border-dark" aria-label="default" aria-describedby="inputGroup-sizing-default" id="email" name="email">
                 </div>
@@ -56,7 +69,7 @@
             <div class="col-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text border-info" id="inputGroup-sizing-default">Password</span>
+                    <span class="input-group-text border-success" id="inputGroup-sizing-default">Password</span>
                     </div>
                     <input type="password" class="form-control border-dark" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="password" name="password">
                 </div>

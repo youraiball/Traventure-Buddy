@@ -118,8 +118,6 @@ def show_activities():
 
     city = request.args.get("city").title()
     country = request.args.get("country").title()
-    from_date = request.args.get("from")
-    to_date = request.args.get("to")
     
     if not city or not country:
         flash("Please enter all fields.", "danger")
@@ -172,8 +170,6 @@ def show_activities():
         "city": city,
         "country": country,
         "activities": activities_list,
-        "fromDate": from_date,
-        "toDate": to_date,
         "destId": destination_id,
         "destImg": destination_img,
         "user": user.fname if user else ""
