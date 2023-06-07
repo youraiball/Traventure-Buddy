@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Traventure Buddy
+    Traventures
 {% endblock %}
 
 {% block head %}
@@ -25,58 +25,58 @@
         <div id="search">
             <div class="row d-flex justify-content-center">
                 <h1 class="text-center text-light mb-4">
-                    Welcome to Traventure Buddy
+                    Welcome to your next Traventure
                 </h1>
                
                 <img src="/static/images/darkgreenglobe.png" style="width: 200px;">
 
                 <!--carousel start-->
-                <div id="carouselExample" class="carousel slide mt-5 text-center">
+                <div id="homeCarousel" class="carousel slide mt-5 text-center">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
                         <div class="d-flex row row-cols-6 justify-content-center">
                             <div class="col">
-                                <div class="card"><img src="static/images/seoul-korea.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/seoul-korea.jpg" class="img-fluid"></div>
                             </div>
                             <div class="col">
-                                <div class="card"><img src="static/images/paris-france.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/paris-france.jpg" class="img-fluid"></div>
                             </div> 
                             <div class="col">
-                                <div class="card"><img src="static/images/berlin-germany.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/berlin-germany.jpg" class="img-fluid"></div>
                             </div>
                             <div class="col">
-                                <div class="card"><img src="static/images/osaka-japan.jpeg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/osaka-japan.jpeg" class="img-fluid"></div>
                             </div>
                             <div class="col">
-                                <div class="card"><img src="static/images/marbella-spain.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/marbella-spain.jpg" class="img-fluid"></div>
                             </div>     
                         </div>
                       </div>
-                      <div class="carousel-item active">
+                      <div class="carousel-item">
                         <div class="d-flex row row-cols-6 justify-content-center">
                             <div class="col">
-                                <div class="card"><img src="static/images/bangkok-thailand.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/bangkok-thailand.jpg" class="img-fluid"></div>
                             </div>
                             <div class="col">
-                                <div class="card"><img src="static/images/athens-greece.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/athens-greece.jpg" class="img-fluid"></div>
                             </div>
                             <div class="col">
-                                <div class="card"><img src="static/images/utah.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/utah.jpg" class="img-fluid"></div>
                             </div>
                             <div class="col">
-                                <div class="card"><img src="static/images/cabo.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/cabo.jpg" class="img-fluid"></div>
                             </div>
                             <div class="col">
-                                <div class="card"><img src="static/images/vietnam.jpg" class="d-block w-30 img-fluid"></div>
+                                <div class="card"><img src="static/images/vietnam.jpg" class="img-fluid"></div>
                             </div>   
                         </div>
                       </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Next</span>
                     </button>
@@ -113,9 +113,15 @@
 
         <div style="display:none;" id="all-activs" class="animate-bottom">
         
-        
-            <h1 id="place-title" class="text-light"></h1>
-            <h3 id="date-title"></h3>
+            <div class="row d-flex justify-content-between align-items-center">
+                <div class="col-6">
+                    <h1 id="place-title" class="text-light"></h1>
+                </div>
+                <div class="col-6 text-end">
+                    <button id="save-btn" type="button" class="btn btn-success" style="display: none;">Save List</button>
+                </div>
+            </div>
+            
     
             <div id="activities-ctn" class="row mb-3">
                 <div id="no-activities" style="display: none;" class="col-12">
@@ -126,7 +132,7 @@
                 <div class="list-group col-6 overflow-auto card border-dark" id="activities-list" style="height: 500px;"></div>
                 <div class="col-6">
                     <img id="destination-img" class="img-fluid mb-3" src="">
-                    <button id="save-btn" type="button" class="btn btn-primary" style="display: none;">Save List</button>
+                    
                 </div>
                 
             </div>
