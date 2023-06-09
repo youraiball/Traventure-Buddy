@@ -23,3 +23,7 @@ nav {
   #find-act {
     background-color: rgb(3, 33, 34);
   }
+
+  .nav-link:hover {
+    color: rgb(232, 193, 154) !important;
+  }
